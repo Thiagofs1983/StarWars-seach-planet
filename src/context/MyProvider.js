@@ -20,6 +20,17 @@ function MyProvider({ children }) {
     getPlanets();
   }, []);
 
+  /* useEffect(() => {
+    const filterName = () => {
+      if (filterByName.name.length > 0) {
+        setData(
+          data.filter((planet) => planet.name.includes(filterByName.name)),
+        );
+      }
+    };
+    filterName();
+  }, [filterByName, data]); */
+
   const handleChange = ({ target: { value } }) => {
     setFilterByName({ name: value });
   };

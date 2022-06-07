@@ -2,7 +2,11 @@ import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 
 function Table() {
-  const { data } = useContext(MyContext);
+  const { data, filterByName } = useContext(MyContext);
+  const dataFilter = data.length > 0
+    ? data.filter((planet) => planet.name.includes(filterByName.name))
+    : data;
+  console.log(dataFilter);
   const headers = [
     'Name',
     'Rotation Period',
@@ -30,7 +34,7 @@ function Table() {
             ))
           }
         </tr>
-        { data.map((planet) => (
+        { dataFilter.map((planet) => (
           <tr key={ planet.name }>
             <td>{planet.name}</td>
             <td>{planet.rotation_period}</td>

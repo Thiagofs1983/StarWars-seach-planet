@@ -3,7 +3,6 @@ import MyContext from '../context/MyContext';
 
 function Header() {
   const { filterByName, handleChange } = useContext(MyContext);
-  console.log(handleChange);
   return (
     <>
       <h1>Projeto Star Wars - Trybe</h1>
