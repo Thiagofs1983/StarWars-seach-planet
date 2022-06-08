@@ -18,6 +18,7 @@ function MyProvider({ children }) {
     'rotation_period',
     'surface_water',
   ]);
+  const [listFilter, setListFilter] = useState([]);
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
   useEffect(() => {
     const getPlanets = async () => {
@@ -58,11 +59,13 @@ function MyProvider({ children }) {
       setDataFilter(filterClick);
       const newArrOpt = optionColunm.filter((option) => option !== column);
       setOptionColunm(newArrOpt);
+      setListFilter([...listFilter, `${column} ${comparison} ${value}`]);
     } if (comparison === 'menor que') {
       const filterClick = dataFilter.filter((planet) => planet[column] < Number(value));
       setDataFilter(filterClick);
       const newArrOpt = optionColunm.filter((option) => option !== column);
       setOptionColunm(newArrOpt);
+      setListFilter([...listFilter, `${column} ${comparison} ${value}`]);
     } if (comparison === 'igual a') {
       const filterClick = dataFilter.filter((planet) => (
         Number(planet[column]) === Number(value)
@@ -70,6 +73,7 @@ function MyProvider({ children }) {
       setDataFilter(filterClick);
       const newArrOpt = optionColunm.filter((option) => option !== column);
       setOptionColunm(newArrOpt);
+      setListFilter([...listFilter, `${column} ${comparison} ${value}`]);
     }
   };
 
@@ -81,6 +85,7 @@ function MyProvider({ children }) {
     handleChangeFilter,
     handleClickFilter,
     optionColunm,
+    listFilter,
   };
 
   return (
