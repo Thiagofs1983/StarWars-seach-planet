@@ -8,7 +8,7 @@ function Header() {
       <h1>Projeto Star Wars - Trybe</h1>
       <input
         type="text"
-        value={ filterByName.name }
+        value={ filterByName }
         onChange={ handleChange }
         data-testid="name-filter"
       />

@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import MyContext from '../context/MyContext';
 
 function Filter() {
+  const {
+    column,
+    comparison,
+    value,
+    handleChangeFilter,
+    handleClickFilter,
+  } = useContext(MyContext);
   return (
     <div>
       <label htmlFor="column">
@@ -8,6 +16,8 @@ function Filter() {
         <select
           name="column"
           id="column"
+          value={ column }
+          onChange={ handleChangeFilter }
           data-testid="column-filter"
         >
           <option value="population">Population</option>
@@ -17,25 +27,30 @@ function Filter() {
           <option value="surface_water">Surface Water</option>
         </select>
       </label>
-      <label htmlFor="operator">
+      <label htmlFor="comparison">
         Operador
         <select
-          name="operator"
-          id="operator"
+          name="comparison"
+          id="comparison"
+          value={ comparison }
+          onChange={ handleChangeFilter }
           data-testid="comparison-filter"
         >
-          <option value=">">Maior que</option>
-          <option value="<">Menor que</option>
-          <option value="=">Igual a</option>
+          <option value="maior que">Maior que</option>
+          <option value="menor que">Menor que</option>
+          <option value="igual a">Igual a</option>
         </select>
       </label>
       <input
         type="number"
-        name="valueFilter"
+        name="value"
+        value={ value }
+        onChange={ handleChangeFilter }
         data-testid="value-filter"
       />
       <button
         type="button"
+        onClick={ handleClickFilter }
         data-testid="button-filter"
       >
         Filtrar

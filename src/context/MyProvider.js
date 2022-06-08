@@ -4,15 +4,21 @@ import MyContext from './MyContext';
 
 function MyProvider({ children }) {
   const [data, setData] = useState([]);
-  const [filterByName, setFilterByName] = useState({ name: '' });
+  const [filterByName, setFilterByName] = useState('');
+  const [dataFilter, setDataFilter] = useState([]);
+  const [filterByNumericValues, setFilterByNumericValues] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    value: 100,
+  });
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
   useEffect(() => {
     const getPlanets = async () => {
       try {
         const response = await fetch(endpoint);
         const { results } = await response.json();
-        /* console.log(results); */
         setData(results);
+        setDataFilter(results);
       } catch (error) {
         console.log(error);
       }
@@ -20,23 +26,33 @@ function MyProvider({ children }) {
     getPlanets();
   }, []);
 
-  /* useEffect(() => {
-    const filterName = () => {
-      if (filterByName.name.length > 0) {
-        setData(
-          data.filter((planet) => planet.name.includes(filterByName.name)),
-        );
-      }
-    };
-    filterName();
-  }, [filterByName, data]); */
+  useEffect(() => {
+    const searchPlanet = data.filter((planet) => planet.name
+      .toLowerCase().includes(filterByName));
+    setDataFilter(searchPlanet);
+  }, [filterByName]);
 
   const handleChange = ({ target: { value } }) => {
-    setFilterByName({ name: value });
+    setFilterByName(value.toLowerCase());
+  };
+
+  const handleChangeFilter = ({ target: { value, name } }) => {
+    setFilterByNumericValues({
+      ...filterByNumericValues,
+      [name]: value,
+    });
+  };
+
+  const context = {
+    dataFilter,
+    filterByName,
+    handleChange,
+    filterByNumericValues,
+    handleChangeFilter,
   };
 
   return (
-    <MyContext.Provider value={ { data, filterByName, handleChange } }>
+    <MyContext.Provider value={ context }>
       { children }
     </MyContext.Provider>
   );
