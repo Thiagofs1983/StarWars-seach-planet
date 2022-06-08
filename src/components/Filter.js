@@ -8,6 +8,7 @@ function Filter() {
     value,
     handleChangeFilter,
     handleClickFilter,
+    optionColunm,
   } = useContext(MyContext);
   return (
     <div>
@@ -20,11 +21,16 @@ function Filter() {
           onChange={ handleChangeFilter }
           data-testid="column-filter"
         >
-          <option value="population">population</option>
+          {
+            optionColunm.map((option) => (
+              <option key={ option }>{ option }</option>
+            ))
+          }
+          {/* <option value="population">population</option>
           <option value="orbital_period">orbital_period</option>
           <option value="diameter">diameter</option>
           <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          <option value="surface_water">surface_water</option> */}
         </select>
       </label>
       <label htmlFor="comparison">

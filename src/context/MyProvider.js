@@ -11,6 +11,13 @@ function MyProvider({ children }) {
     comparison: 'maior que',
     value: 0,
   });
+  const [optionColunm, setOptionColunm] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
   useEffect(() => {
     const getPlanets = async () => {
@@ -67,6 +74,7 @@ function MyProvider({ children }) {
     ...filterByNumericValues,
     handleChangeFilter,
     handleClickFilter,
+    optionColunm,
   };
 
   return (
