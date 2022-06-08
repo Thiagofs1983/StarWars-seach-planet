@@ -29,6 +29,11 @@ function Filter() {
           <option value="=">Igual a</option>
         </select>
       </label>
+      <input
+        type="number"
+        name="valueFilter"
+        data-testid="value-filter"
+      />
       <button
         type="button"
         data-testid="button-filter"
