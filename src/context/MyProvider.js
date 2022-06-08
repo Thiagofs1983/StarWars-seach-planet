@@ -9,7 +9,7 @@ function MyProvider({ children }) {
   const [filterByNumericValues, setFilterByNumericValues] = useState({
     column: 'population',
     comparison: 'maior que',
-    value: 100,
+    value: 0,
   });
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
   useEffect(() => {
@@ -43,12 +43,30 @@ function MyProvider({ children }) {
     });
   };
 
+  const handleClickFilter = () => {
+    /* Mentoria Lua parou no minuto 66 */
+    const { column, value, comparison } = filterByNumericValues;
+    if (comparison === 'maior que') {
+      const filterClick = dataFilter.filter((planet) => planet[column] > Number(value));
+      setDataFilter(filterClick);
+    } if (comparison === 'menor que') {
+      const filterClick = dataFilter.filter((planet) => planet[column] < Number(value));
+      setDataFilter(filterClick);
+    } if (comparison === 'igual a') {
+      const filterClick = dataFilter.filter((planet) => (
+        Number(planet[column]) === Number(value)
+      ));
+      setDataFilter(filterClick);
+    }
+  };
+
   const context = {
     dataFilter,
     filterByName,
     handleChange,
-    filterByNumericValues,
+    ...filterByNumericValues,
     handleChangeFilter,
+    handleClickFilter,
   };
 
   return (
