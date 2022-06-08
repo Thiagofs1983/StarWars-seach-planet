@@ -56,14 +56,20 @@ function MyProvider({ children }) {
     if (comparison === 'maior que') {
       const filterClick = dataFilter.filter((planet) => planet[column] > Number(value));
       setDataFilter(filterClick);
+      const newArrOpt = optionColunm.filter((option) => option !== column);
+      setOptionColunm(newArrOpt);
     } if (comparison === 'menor que') {
       const filterClick = dataFilter.filter((planet) => planet[column] < Number(value));
       setDataFilter(filterClick);
+      const newArrOpt = optionColunm.filter((option) => option !== column);
+      setOptionColunm(newArrOpt);
     } if (comparison === 'igual a') {
       const filterClick = dataFilter.filter((planet) => (
         Number(planet[column]) === Number(value)
       ));
       setDataFilter(filterClick);
+      const newArrOpt = optionColunm.filter((option) => option !== column);
+      setOptionColunm(newArrOpt);
     }
   };
 
