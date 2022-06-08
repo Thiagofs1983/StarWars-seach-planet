@@ -17,6 +17,18 @@ function Filter() {
           <option value="surface_water">Surface Water</option>
         </select>
       </label>
+      <label htmlFor="operator">
+        Operador
+        <select
+          name="operator"
+          id="operator"
+          data-testid="comparison-filter"
+        >
+          <option value=">">Maior que</option>
+          <option value="<">Menor que</option>
+          <option value="=">Igual a</option>
+        </select>
+      </label>
       <button
         type="button"
         data-testid="button-filter"
