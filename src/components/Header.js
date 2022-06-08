@@ -2,7 +2,13 @@ import React, { useContext } from 'react';
 import MyContext from '../context/MyContext';
 
 function Header() {
-  const { filterByName, handleChange } = useContext(MyContext);
+  const {
+    filterByName,
+    handleChange,
+    listFilter,
+    handleClickRemoveFilter,
+  } = useContext(MyContext);
+
   return (
     <div>
       <h1>Projeto Star Wars - Trybe</h1>
@@ -12,6 +18,22 @@ function Header() {
         onChange={ handleChange }
         data-testid="name-filter"
       />
+      {
+        listFilter.map((filter) => (
+          <p
+            key={ filter }
+            data-testid="filter"
+          >
+            { filter }
+            <button
+              type="button"
+              onClick={ () => handleClickRemoveFilter(filter) }
+            >
+              X
+            </button>
+          </p>
+        ))
+      }
     </div>
   );
 }

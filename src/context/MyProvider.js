@@ -77,6 +77,17 @@ function MyProvider({ children }) {
     }
   };
 
+  const handleClickRemoveFilter = (filter) => {
+    const remove = listFilter.filter((item) => item !== filter);
+    setListFilter(remove);
+    const itemRemove = filter.split(' ')[0];
+    setOptionColunm([...optionColunm, itemRemove]);
+    const COLUMNS_LENGTH = 4;
+    if (optionColunm.length === COLUMNS_LENGTH) {
+      setDataFilter(data);
+    }
+  };
+
   const context = {
     dataFilter,
     filterByName,
@@ -86,6 +97,7 @@ function MyProvider({ children }) {
     handleClickFilter,
     optionColunm,
     listFilter,
+    handleClickRemoveFilter,
   };
 
   return (
