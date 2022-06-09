@@ -64,6 +64,20 @@ function Filter() {
       >
         REMOVER FILTROS
       </button>
+      <label htmlFor="sort">
+        Ordenar
+        <select
+          name="sort"
+          id="sort"
+          data-testid="column-sort"
+        >
+          {
+            optionColunm.map((option) => (
+              <option key={ option }>{option}</option>
+            ))
+          }
+        </select>
+      </label>
     </div>
   );
 }
