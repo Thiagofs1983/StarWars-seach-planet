@@ -9,6 +9,7 @@ function Filter() {
     handleChangeFilter,
     handleClickFilter,
     optionColunm,
+    removeAllFilters,
   } = useContext(MyContext);
   return (
     <div>
@@ -55,6 +56,13 @@ function Filter() {
         data-testid="button-filter"
       >
         Filtrar
+      </button>
+      <button
+        type="button"
+        onClick={ removeAllFilters }
+        data-testid="button-remove-filters"
+      >
+        REMOVER FILTROS
       </button>
     </div>
   );

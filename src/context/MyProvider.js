@@ -52,40 +52,71 @@ function MyProvider({ children }) {
   };
 
   const handleClickFilter = () => {
-    /* Mentoria Lua parou no minuto 66 */
     const { column, value, comparison } = filterByNumericValues;
     if (comparison === 'maior que') {
       const filterClick = dataFilter.filter((planet) => planet[column] > Number(value));
       setDataFilter(filterClick);
       const newArrOpt = optionColunm.filter((option) => option !== column);
       setOptionColunm(newArrOpt);
-      setListFilter([...listFilter, `${column} ${comparison} ${value}`]);
-    } if (comparison === 'menor que') {
+      setListFilter([...listFilter, { column, comparison, value }]);
+    }
+    if (comparison === 'menor que') {
       const filterClick = dataFilter.filter((planet) => planet[column] < Number(value));
       setDataFilter(filterClick);
       const newArrOpt = optionColunm.filter((option) => option !== column);
       setOptionColunm(newArrOpt);
-      setListFilter([...listFilter, `${column} ${comparison} ${value}`]);
-    } if (comparison === 'igual a') {
+      setListFilter([...listFilter, { column, comparison, value }]);
+    }
+    if (comparison === 'igual a') {
       const filterClick = dataFilter.filter((planet) => (
         Number(planet[column]) === Number(value)
       ));
       setDataFilter(filterClick);
       const newArrOpt = optionColunm.filter((option) => option !== column);
       setOptionColunm(newArrOpt);
-      setListFilter([...listFilter, `${column} ${comparison} ${value}`]);
+      setListFilter([...listFilter, { column, comparison, value }]);
     }
   };
 
   const handleClickRemoveFilter = (filter) => {
-    const remove = listFilter.filter((item) => item !== filter);
+    const remove = listFilter.filter((item) => item.column !== filter.column);
     setListFilter(remove);
-    const itemRemove = filter.split(' ')[0];
-    setOptionColunm([...optionColunm, itemRemove]);
-    const COLUMNS_LENGTH = 4;
-    if (optionColunm.length === COLUMNS_LENGTH) {
+    setOptionColunm([...optionColunm, filter.column]);
+  };
+
+  useEffect(() => {
+    listFilter.forEach((filter) => {
+      if (filter.comparison === 'maior que') {
+        const dataFilters = data
+          .filter((planet) => planet[filter.column] > Number(filter.value));
+        setDataFilter(dataFilters);
+      }
+      if (filter.comparison === 'menor que') {
+        const dataFilters = data
+          .filter((planet) => planet[filter.column] < Number(filter.value));
+        setDataFilter(dataFilters);
+      }
+      if (filter.comparison === 'igual a') {
+        const dataFilters = data
+          .filter((planet) => Number(planet[filter.column]) === Number(filter.value));
+        setDataFilter(dataFilters);
+      }
+    });
+    if (listFilter.length === 0) {
       setDataFilter(data);
     }
+  }, [listFilter]);
+
+  const removeAllFilters = () => {
+    setOptionColunm([
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ]);
+    setDataFilter(data);
+    setListFilter([]);
   };
 
   const context = {
@@ -98,6 +129,7 @@ function MyProvider({ children }) {
     optionColunm,
     listFilter,
     handleClickRemoveFilter,
+    removeAllFilters,
   };
 
   return (

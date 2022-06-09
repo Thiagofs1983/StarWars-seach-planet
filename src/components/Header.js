@@ -21,10 +21,10 @@ function Header() {
       {
         listFilter.map((filter) => (
           <p
-            key={ filter }
+            key={ filter.column }
             data-testid="filter"
           >
-            { filter }
+            { `${filter.column} ${filter.comparison} ${filter.value}` }
             <button
               type="button"
               onClick={ () => handleClickRemoveFilter(filter) }
