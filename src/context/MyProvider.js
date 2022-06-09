@@ -82,22 +82,23 @@ function MyProvider({ children }) {
     const remove = listFilter.filter((item) => item.column !== filter.column);
     setListFilter(remove);
     setOptionColunm([...optionColunm, filter.column]);
+    setDataFilter(data);
   };
 
   useEffect(() => {
     listFilter.forEach((filter) => {
       if (filter.comparison === 'maior que') {
-        const dataFilters = data
+        const dataFilters = dataFilter
           .filter((planet) => planet[filter.column] > Number(filter.value));
         setDataFilter(dataFilters);
       }
       if (filter.comparison === 'menor que') {
-        const dataFilters = data
+        const dataFilters = dataFilter
           .filter((planet) => planet[filter.column] < Number(filter.value));
         setDataFilter(dataFilters);
       }
       if (filter.comparison === 'igual a') {
-        const dataFilters = data
+        const dataFilters = dataFilter
           .filter((planet) => Number(planet[filter.column]) === Number(filter.value));
         setDataFilter(dataFilters);
       }
