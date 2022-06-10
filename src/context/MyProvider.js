@@ -53,29 +53,23 @@ function MyProvider({ children }) {
 
   const handleClickFilter = () => {
     const { column, value, comparison } = filterByNumericValues;
-    if (comparison === 'maior que') {
-      const filterClick = dataFilter.filter((planet) => planet[column] > Number(value));
-      setDataFilter(filterClick);
-      const newArrOpt = optionColunm.filter((option) => option !== column);
-      setOptionColunm(newArrOpt);
-      setListFilter([...listFilter, { column, comparison, value }]);
-    }
-    if (comparison === 'menor que') {
-      const filterClick = dataFilter.filter((planet) => planet[column] < Number(value));
-      setDataFilter(filterClick);
-      const newArrOpt = optionColunm.filter((option) => option !== column);
-      setOptionColunm(newArrOpt);
-      setListFilter([...listFilter, { column, comparison, value }]);
-    }
-    if (comparison === 'igual a') {
-      const filterClick = dataFilter.filter((planet) => (
-        Number(planet[column]) === Number(value)
-      ));
-      setDataFilter(filterClick);
-      const newArrOpt = optionColunm.filter((option) => option !== column);
-      setOptionColunm(newArrOpt);
-      setListFilter([...listFilter, { column, comparison, value }]);
-    }
+    const filterClick = dataFilter.filter((planet) => {
+      let filter;
+      if (comparison === 'maior que') {
+        filter = Number(planet[column]) > Number(value);
+      }
+      if (comparison === 'menor que') {
+        filter = Number(planet[column]) < Number(value);
+      }
+      if (comparison === 'igual a') {
+        filter = Number(planet[column]) === Number(value);
+      }
+      return filter;
+    });
+    setDataFilter(filterClick);
+    const newArrOpt = optionColunm.filter((option) => option !== column);
+    setOptionColunm(newArrOpt);
+    setListFilter([...listFilter, { column, comparison, value }]);
   };
 
   const handleClickRemoveFilter = (filter) => {
