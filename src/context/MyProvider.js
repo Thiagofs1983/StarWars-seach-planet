@@ -81,7 +81,21 @@ function MyProvider({ children }) {
 
   useEffect(() => {
     listFilter.forEach((filter) => {
-      if (filter.comparison === 'maior que') {
+      const dataFilters = dataFilter.filter((planet) => {
+        let filters;
+        if (filter.comparison === 'maior que') {
+          filters = Number(planet[filter.column]) > Number(filter.value);
+        }
+        if (filter.comparison === 'menor que') {
+          filters = Number(planet[filter.column]) < Number(filter.value);
+        }
+        if (filter.comparison === 'igual a') {
+          filters = Number(planet[filter.column]) === Number(filter.value);
+        }
+        return filters;
+      });
+      setDataFilter(dataFilters);
+      /* if (filter.comparison === 'maior que') {
         const dataFilters = dataFilter
           .filter((planet) => planet[filter.column] > Number(filter.value));
         setDataFilter(dataFilters);
@@ -95,7 +109,7 @@ function MyProvider({ children }) {
         const dataFilters = dataFilter
           .filter((planet) => Number(planet[filter.column]) === Number(filter.value));
         setDataFilter(dataFilters);
-      }
+      } */
     });
     if (listFilter.length === 0) {
       setDataFilter(data);
