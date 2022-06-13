@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 import MyContext from '../context/MyContext';
+import { HeaderS, Title, Input, Paragraph, ButtonTrash } from '../Style';
+/* import '../App.css'; */
 
 function Header() {
   const {
@@ -10,9 +13,9 @@ function Header() {
   } = useContext(MyContext);
 
   return (
-    <div>
-      <h1>Projeto Star Wars - Trybe</h1>
-      <input
+    <HeaderS>
+      <Title>Projeto Star Wars - Trybe</Title>
+      <Input
         type="text"
         value={ filterByName }
         onChange={ handleChange }
@@ -20,21 +23,23 @@ function Header() {
       />
       {
         listFilter.map((filter) => (
-          <p
+          <Paragraph
             key={ filter.column }
             data-testid="filter"
           >
             { `${filter.column} ${filter.comparison} ${filter.value}` }
-            <button
+            <ButtonTrash
               type="button"
+              className="trash"
               onClick={ () => handleClickRemoveFilter(filter) }
             >
-              X
-            </button>
-          </p>
+              <FaTrashAlt />
+            </ButtonTrash>
+
+          </Paragraph>
         ))
       }
-    </div>
+    </HeaderS>
   );
 }
 

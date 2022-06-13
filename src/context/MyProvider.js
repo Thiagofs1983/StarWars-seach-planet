@@ -6,11 +6,6 @@ function MyProvider({ children }) {
   const [data, setData] = useState([]);
   const [filterByName, setFilterByName] = useState('');
   const [dataFilter, setDataFilter] = useState([]);
-  const [filterByNumericValues, setFilterByNumericValues] = useState({
-    column: 'population',
-    comparison: 'maior que',
-    value: 0,
-  });
   const [optionColunm, setOptionColunm] = useState([
     'population',
     'orbital_period',
@@ -18,7 +13,16 @@ function MyProvider({ children }) {
     'rotation_period',
     'surface_water',
   ]);
+  const [filterByNumericValues, setFilterByNumericValues] = useState({
+    column: optionColunm[0],
+    comparison: 'maior que',
+    value: 0,
+  });
   const [listFilter, setListFilter] = useState([]);
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets/';
   useEffect(() => {
     const getPlanets = async () => {
@@ -70,6 +74,11 @@ function MyProvider({ children }) {
     const newArrOpt = optionColunm.filter((option) => option !== column);
     setOptionColunm(newArrOpt);
     setListFilter([...listFilter, { column, comparison, value }]);
+    setFilterByNumericValues({
+      column: newArrOpt[0],
+      comparison: 'maior que',
+      value: 0,
+    });
   };
 
   const handleClickRemoveFilter = (filter) => {
@@ -95,21 +104,6 @@ function MyProvider({ children }) {
         return filters;
       });
       setDataFilter(dataFilters);
-      /* if (filter.comparison === 'maior que') {
-        const dataFilters = dataFilter
-          .filter((planet) => planet[filter.column] > Number(filter.value));
-        setDataFilter(dataFilters);
-      }
-      if (filter.comparison === 'menor que') {
-        const dataFilters = dataFilter
-          .filter((planet) => planet[filter.column] < Number(filter.value));
-        setDataFilter(dataFilters);
-      }
-      if (filter.comparison === 'igual a') {
-        const dataFilters = dataFilter
-          .filter((planet) => Number(planet[filter.column]) === Number(filter.value));
-        setDataFilter(dataFilters);
-      } */
     });
     if (listFilter.length === 0) {
       setDataFilter(data);
@@ -128,17 +122,52 @@ function MyProvider({ children }) {
     setListFilter([]);
   };
 
+  const handleChangeSort = ({ target: { value } }) => {
+    setOrder({
+      ...order,
+      column: value,
+    });
+  };
+
+  const handleClickRadio = ({ target: { value } }) => {
+    setOrder(() => ({
+      ...order,
+      sort: value,
+    }));
+  };
+
+  const handleClickSort = () => {
+    const { sort, column } = order;
+    console.log(sort, column);
+    const orderColumn = dataFilter.sort((a, b) => {
+      let sortCondition;
+      if (order.sort === 'ASC') {
+        sortCondition = a[column] - b[column];
+      }
+      if (sort === 'DESC') {
+        sortCondition = b[column] - a[column];
+      }
+      return sortCondition;
+    });
+    console.log(orderColumn);
+    setDataFilter(orderColumn);
+  };
+
   const context = {
     dataFilter,
     filterByName,
     handleChange,
-    ...filterByNumericValues,
+    filterByNumericValues,
     handleChangeFilter,
     handleClickFilter,
     optionColunm,
     listFilter,
     handleClickRemoveFilter,
     removeAllFilters,
+    order,
+    handleChangeSort,
+    handleClickRadio,
+    handleClickSort,
   };
 
   return (

@@ -3,13 +3,15 @@ import MyContext from '../context/MyContext';
 
 function Filter() {
   const {
-    column,
-    comparison,
-    value,
+    filterByNumericValues,
     handleChangeFilter,
     handleClickFilter,
     optionColunm,
     removeAllFilters,
+    handleChangeSort,
+    order,
+    handleClickRadio,
+    handleClickSort,
   } = useContext(MyContext);
   return (
     <div>
@@ -18,7 +20,7 @@ function Filter() {
         <select
           name="column"
           id="column"
-          value={ column }
+          value={ filterByNumericValues.column }
           onChange={ handleChangeFilter }
           data-testid="column-filter"
         >
@@ -34,7 +36,7 @@ function Filter() {
         <select
           name="comparison"
           id="comparison"
-          value={ comparison }
+          value={ filterByNumericValues.comparison }
           onChange={ handleChangeFilter }
           data-testid="comparison-filter"
         >
@@ -46,7 +48,7 @@ function Filter() {
       <input
         type="number"
         name="value"
-        value={ value }
+        value={ filterByNumericValues.value }
         onChange={ handleChangeFilter }
         data-testid="value-filter"
       />
@@ -64,11 +66,13 @@ function Filter() {
       >
         REMOVER FILTROS
       </button>
-      <label htmlFor="sort">
+      <label htmlFor="column">
         Ordenar
         <select
-          name="sort"
-          id="sort"
+          name="column"
+          id="column"
+          value={ order.column }
+          onChange={ handleChangeSort }
           data-testid="column-sort"
         >
           {
@@ -78,6 +82,35 @@ function Filter() {
           }
         </select>
       </label>
+      <label htmlFor="ASC">
+        <input
+          type="radio"
+          name="sort"
+          value="ASC"
+          id="ASC"
+          data-testid="column-sort-input-asc"
+          onClick={ handleClickRadio }
+        />
+        Ascendente
+      </label>
+      <label htmlFor="DESC">
+        <input
+          type="radio"
+          name="sort"
+          value="DESC"
+          id="DESC"
+          data-testid="column-sort-input-desc"
+          onClick={ handleClickRadio }
+        />
+        Descendente
+      </label>
+      <button
+        type="button"
+        onClick={ handleClickSort }
+        data-testid="column-sort-button"
+      >
+        ORDENAR
+      </button>
     </div>
   );
 }
