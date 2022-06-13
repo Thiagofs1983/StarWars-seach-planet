@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import MyContext from '../context/MyContext';
 import { HeaderS, Title, Input, Paragraph, ButtonTrash } from '../Style';
-/* import '../App.css'; */
 
 function Header() {
   const {
