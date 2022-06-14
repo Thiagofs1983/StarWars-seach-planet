@@ -29,7 +29,7 @@ function MyProvider({ children }) {
       try {
         const response = await fetch(endpoint);
         const { results } = await response.json();
-        setData(results);
+        setData(results.sort((a, b) => a.name.localeCompare(b.name)));
         setDataFilter(results);
       } catch (error) {
         console.log(error);
@@ -138,19 +138,21 @@ function MyProvider({ children }) {
 
   const handleClickSort = () => {
     const { sort, column } = order;
-    console.log(sort, column);
-    const orderColumn = dataFilter.sort((a, b) => {
+    const filterWithoutUnknow = dataFilter
+      .filter((dataColumn) => dataColumn[column] !== 'unknown');
+    const filterUnknow = dataFilter
+      .filter((dataColumn) => dataColumn[column] === 'unknown');
+    const orderColumn = filterWithoutUnknow.sort((a, b) => {
       let sortCondition;
-      if (order.sort === 'ASC') {
-        sortCondition = a[column] - b[column];
+      if (sort === 'ASC') {
+        sortCondition = Number(a[column]) - Number(b[column]);
       }
       if (sort === 'DESC') {
-        sortCondition = b[column] - a[column];
+        sortCondition = Number(b[column]) - Number(a[column]);
       }
       return sortCondition;
     });
-    console.log(orderColumn);
-    setDataFilter(orderColumn);
+    setDataFilter([...orderColumn, ...filterUnknow]);
   };
 
   const context = {

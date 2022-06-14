@@ -102,3 +102,33 @@ export const Radio = styled.section`
   display: flex;
   flex-direction: column;
 `;
+
+export const TableS = styled.table`
+  border-collapse: collapse;
+`;
+
+export const Thead = styled.th`
+  border: 1px solid rgb(148, 161, 178);
+  background-color: rgb(10, 10, 10);
+  text-align: center;
+  padding: 5px;
+`;
+
+export const Tbody = styled.td`
+  border: 1px solid rgb(148, 161, 178);
+  text-align: center;
+  padding: 3px;
+  a {
+    color: rgb(148, 161, 178);
+  }
+  a:hover {
+    text-decoration: none;
+    color: white;
+  }
+`;
+
+export const Tr = styled.tr`
+  :nth-child(2n + 1) {
+    background-color: rgb(35, 35, 40)
+  }
+`;
