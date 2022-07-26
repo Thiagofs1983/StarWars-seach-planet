@@ -1,16 +1,27 @@
-# 🚧 README em construção 🚧
+# Star Wars Search Planet
 
-<!-- Olá, Tryber!
+# Contexto
+Projeto que busca os planetas dos universo StarWars através de filtros feitos em React.
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+## Técnologias usadas
 
-É essencial que você preencha esse documento por conta própria, ok?
+Front-end:
+> Desenvolvido usando: React, Context API, Hofs, Styled-components, CSS FlexBox, ES6
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+## Instalando Dependências
+ 
+> Frontend
+```bash
+cd sd-020-a-project-starwars-planets-search/
+npm install
+``` 
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+* Para rodar o front-end:
 
--->
+```
+cd sd-020-a-project-starwars-planets-search/ && npm start
+```
+
+## Acessar a aplicação
+
+[Star Wars Search Planets](https://star-wars-search-planet.vercel.app/)
